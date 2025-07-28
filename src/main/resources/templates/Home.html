@@ -1,0 +1,64 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Landing Page</title>
+ <link th:href="@{/CSS/styles.css}" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Logo</div>
+            <ul class="nav-links">
+                <li><a href="#"> Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button id="login-btn">Login</button>
+                <button id="signup-btn">Sign Up</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to Our Website</h1>
+            <p>Discover amazing features and services.</p>
+            <button class="cta-button">Learn More</button>
+        </section>
+    </main>
+
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form>
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="email" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign Up</h2>
+            <form>
+                <label for="signup-email">Email:</label>
+                <input type="email" id="signup-email" name="email" required>
+                <label for="signup-password">Password:</label>
+                <input type="password" id="signup-password" name="password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script th:src="@{/JS/script.js}"></script>
+</body>
+</html>
