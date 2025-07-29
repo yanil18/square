@@ -1,16 +1,24 @@
 package com.anil.square.Entities.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 
 
 @Entity
-@Table()
+@Table
+@EntityListeners(AuditingEntityListener.class)
 public class Prousers {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +30,17 @@ public class Prousers {
     private String mobileno;
     private String password;
     private String confirmpassword;
+
+    @LastModifiedDate
+    private LocalDateTime updateAt;
+
+    
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
+     private LocalDateTime createdAt;
+
+   
+    
 
 
     public Long getId() {
@@ -62,6 +81,30 @@ public class Prousers {
     }
     public void setMobileno(String mobileno) {
         this.mobileno = mobileno;
+    }
+
+
+
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
+    }
+
+
+
+    public void setUpdateAt(LocalDateTime updateAt) {
+        this.updateAt = updateAt;
+    }
+
+
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
 
