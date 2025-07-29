@@ -113,3 +113,22 @@ form button {
     color: #fff;
     cursor: pointer;
 }
+
+
+.alert {
+    padding: 10px 15px;
+    margin: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}

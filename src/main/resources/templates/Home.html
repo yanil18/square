@@ -29,13 +29,15 @@
             <p>Discover amazing features and services.</p>
             <button class="cta-button">Learn More</button>
         </section>
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
     </main>
 
     <div id="login-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Login</h2>
-            <form>
+            <form th:action="@{/login}" method="post">
                 <label for="login-email">Email:</label>
                 <input type="email" id="login-email" name="email" required>
                 <label for="login-password">Password:</label>
@@ -49,15 +51,24 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Sign Up</h2>
-            <form>
+            <form th:action="@{addusers}" method="post" enctype="multipart/form-data">
+                <label for="signup-name">Name:</label>
+                <input type="text" id="signup-email" name="name" required>
+                <label for="signup-mobile">Mobile No.:</label>
+                <input type="number" id="signup-email" name="mobileno" required>
                 <label for="signup-email">Email:</label>
                 <input type="email" id="signup-email" name="email" required>
                 <label for="signup-password">Password:</label>
                 <input type="password" id="signup-password" name="password" required>
+                 <label for="signup-confirmpassword">Confirm Password:</label>
+                <input type="password" id="signup-confirmpassword" name="confirmpassword" required>
                 <button type="submit">Sign Up</button>
             </form>
         </div>
     </div>
+
+    
+
 
     <script th:src="@{/JS/script.js}"></script>
 </body>
