@@ -25,3 +25,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+
+ // console.log("requirement1 at Mobile :: " + globalMobileRequirement);
+
+ test();
+
+ function  test(){
+    alert("dsdsdsds")
+  var usr = JSON.stringify({
+    value: "test@gmail.com",
+  });
+
+  var dd = chkV(usr);
+
+  var settings1 = {
+    url: "test?d=" + dd,
+    method: "POST",
+    timeout: 0,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  $.ajax(settings1).done(function (j) {
+    // j = setV(j);
+    j = JSON.parse(j);
+    //alert(j.statusCode);
+    // console.log(j.data[0])
+    if (j.statusCode == "1") {
+      alert("Mobile no already exists.");
+    } else if (j.statusCode == "2") {
+      callOTPBasedOnStCode(dd);
+    } else if (j.statusCode == "0" && globalMobileRequirement == false) {
+      callOTPBasedOnStCode(dd);
+    } else {
+      alert("User Not Found.");
+    }
+  });
+ }
