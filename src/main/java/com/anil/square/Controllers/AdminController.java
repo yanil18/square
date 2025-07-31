@@ -18,9 +18,23 @@ import com.anil.square.Entities.model.Prousers;
 public class AdminController {
     
 
+
+	public static HybridController hybridController = new HybridController();
+
+	public static String Hybriddecrypt(String strToDecrypt) {
+		try {
+			return hybridController.Hybrid_Data_Decryption(strToDecrypt);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+		}
+		return null;
+	}
   
    @RequestMapping ("/dash")
-    public String dashboard(HttpServletRequest request, Model model) {
+    public String dashboard(HttpServletRequest request, Model model, String d) {
+
+        		String decrStr = Hybriddecrypt(d.replaceAll(" ", "+"));
 
         Prousers loggedInUser = (Prousers) request.getSession().getAttribute("loggedInUser");
         if(loggedInUser == null){

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Modern Landing Page</title>
  <link th:href="@{/CSS/styles.css}" rel="stylesheet">
 </head>
@@ -22,7 +23,8 @@
             </div>
         </nav>
     </header>
-
+<input type="hidden" id="context_path"
+			th:value="${#httpServletRequest.getContextPath()}"></input>
     <main>
         <section class="hero">
             <h1>Welcome to Our Website</h1>
@@ -69,6 +71,13 @@
 
     
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/JS/cryptoJS.js}"></script>
+    <script th:src="@{/JS/code.js}"></script>
+  	<script th:src="@{/JS/csrfToken.js}"></script>
+	<script th:src="@{/JS/aesUtil.js}"></script>
+	<script th:src="@{/JS/forge.js}"></script>
+	<script th:src="@{/JS/HybridEncryption.js}"></script>
 
     <script th:src="@{/JS/script.js}"></script>
 </body>
