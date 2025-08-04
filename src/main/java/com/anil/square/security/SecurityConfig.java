@@ -16,14 +16,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     public void configure(HttpSecurity  http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/","/addusers", "/dash", "/keys",  "/login","/autoauth/{email}/{password}", "/**/*.css", "/JS/**").permitAll()
+                .antMatchers("/","/addusers", "/test", "/dash", "/keys",  "/login","/autoauth/{email}/{password}", "/**/*.css", "/JS/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .logout()
             .logoutUrl("/logout")
              .logoutSuccessUrl("/")
                 .permitAll()
-                .and().csrf().disable();   
+                ;   
     }
     
 

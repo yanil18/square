@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.anil.square.Entities.model.Prousers;
@@ -66,7 +68,7 @@ public class MainController {
 	}
   
    @RequestMapping ("/test")
-    public String dashboard(HttpServletRequest request, Model model, String d) {
+    public @ResponseBody String dashboard(HttpServletRequest request, Model model,@RequestParam String d) {
 
         		String decrStr = Hybriddecrypt(d.replaceAll(" ", "+"));
 
