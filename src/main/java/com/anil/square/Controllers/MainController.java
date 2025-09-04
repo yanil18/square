@@ -61,8 +61,7 @@ public class MainController {
 		try {
 			return hybridController.Hybrid_Data_Decryption(strToDecrypt);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
+			
 		}
 		return null;
 	}

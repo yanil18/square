@@ -51,21 +51,7 @@ function test() {
   };
   //console.log(settings1);
 
-  $.ajax(settings1).done(function (j) {
-    // j = setV(j);
-   // j = JSON.parse(j);
-    //alert(j.statusCode);
-     console.log(j)
-    if (j.statusCode == "1") {
-      alert("Mobile no already exists.");
-    } else if (j.statusCode == "2") {
-      callOTPBasedOnStCode(dd);
-    } else if (j.statusCode == "0" && globalMobileRequirement == false) {
-      callOTPBasedOnStCode(dd);
-    } else {
-      alert("User Not Found.");
-    }
-  });
+
 }
 
 setTimeout(()=>{
