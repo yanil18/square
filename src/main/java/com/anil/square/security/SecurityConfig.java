@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     public void configure(HttpSecurity  http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/","/addusers", "/test", "/dash", "/keys",  "/login","/autoauth/{email}/{password}", "/**/*.css", "/JS/**").permitAll()
+                .antMatchers("/","/sendtestmail","/addusers", "/test", "/dash", "/keys", "/captcha", "/login","/autoauth/{email}/{password}", "/**/*.css", "/JS/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .logout()

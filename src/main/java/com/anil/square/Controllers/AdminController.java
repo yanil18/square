@@ -5,8 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.anil.square.Entities.model.Prousers;
+import com.anil.square.Utils.SendMail;
 
 
 
@@ -22,8 +24,7 @@ public class AdminController {
 		try {
 			return hybridController.Hybrid_Data_Decryption(strToDecrypt);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
+		
 		}
 		return null;
 	}
@@ -40,5 +41,21 @@ public class AdminController {
         model.addAttribute("user", loggedInUser);
         return "admin";
     }
+
+	@RestController
+	public class TestMailController {
+
+		@RequestMapping("/sendtestmail")
+		public String sendtestmail() {
+			String to = "anilyad1908@gmail.com";
+			String subject = "Test Mail";
+			String message = "This is a test mail";
+			return	SendMail.sendDevMail(subject, to, message);
+
+			
+			
+			
+		}
+	}
     
 }
