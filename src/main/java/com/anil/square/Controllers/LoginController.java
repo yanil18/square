@@ -101,16 +101,18 @@ public class LoginController {
     public String logins(@RequestParam String email, @RequestParam String password, @RequestParam String captcha,
             HttpServletRequest request, Model model, RedirectAttributes attributes) {
 
-        try {
-            HttpSession session = request.getSession();
-            String sessionCaptcha = (String) session.getAttribute("captcha");
+                //captcha bypass
+        // try {
+        //     HttpSession session = request.getSession();
+        //     String sessionCaptcha = (String) session.getAttribute("captcha");
 
-            // Validate CAPTCHA
-            if (sessionCaptcha == null || !captcha.equalsIgnoreCase(sessionCaptcha)) {
-                attributes.addFlashAttribute("error", "Invalid CAPTCHA");
-                attributes.addFlashAttribute("email", email);
-                return "redirect:/";
-            }
+        //     // Validate CAPTCHA
+        //     if (sessionCaptcha == null || !captcha.equalsIgnoreCase(sessionCaptcha)) {
+        //         attributes.addFlashAttribute("error", "Invalid CAPTCHA");
+        //         attributes.addFlashAttribute("email", email);
+        //         return "redirect:/";
+        //     }
+
             Prousers prousers = prouserRepo.findByEmail(email);
 
             if (authenticateProusers(email, password, request)) {
@@ -120,13 +122,13 @@ public class LoginController {
                 attributes.addFlashAttribute("error", "Invalid Password");
                 return "redirect:/";
             }
-        }
+        // }
 
-        catch (Exception e) {
-            e.printStackTrace(); // You might want to log this instead
-            attributes.addFlashAttribute("error", "An error occurred, please try again later");
-            return "redirect:/";
-        }
+        // catch (Exception e) {
+        //     e.printStackTrace(); // You might want to log this instead
+        //     attributes.addFlashAttribute("error", "An error occurred, please try again later");
+        //     return "redirect:/";
+        // }
 
     }
 
