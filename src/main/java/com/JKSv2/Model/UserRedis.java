@@ -1,15 +1,13 @@
 package com.JKSv2.Model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Transient;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
-
-import java.io.Serializable;
-import java.util.Date;
 
 @RedisHash("UserRedis")
 public class UserRedis implements Serializable {

@@ -1,6 +1,7 @@
 package com.JKSv2.Controller;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,12 +13,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.JKSv2.Model.UserRedis;
+import com.anil.square.Repository.UserRedisRepository;
+
 @RestController
 @RequestMapping("/redis")
 public class RedisController {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+
+    @Autowired
+    private UserRedisRepository userRedisRepository;
 
     // ✅ Get all keys matching pattern (e.g., UserRedis:*)
     @GetMapping("/keys")
@@ -87,6 +94,45 @@ public class RedisController {
                 "offset", offset,
                 "limit", limit,
                 "data", records));
+    }
+
+    // ===== CRUD using Spring Data Redis Repository (UserRedis) =====
+
+    // Create or Update a user (upsert)
+    @PostMapping("/user")
+    public ResponseEntity<UserRedis> upsertUser(@RequestBody UserRedis user) {
+        if (user == null || user.getUsername() == null || user.getUsername().trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        UserRedis saved = userRedisRepository.save(user);
+        return ResponseEntity.status(HttpStatus.OK).body(saved);
+    }
+
+    // Read a user by username
+    @GetMapping("/user")
+    public ResponseEntity<UserRedis> getUser(@RequestParam String username) {
+        return userRedisRepository.findById(username)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    // List all users (careful on big datasets)
+    @GetMapping("/users")
+    public ResponseEntity<List<UserRedis>> listUsers() {
+        Iterable<UserRedis> all = userRedisRepository.findAll();
+        List<UserRedis> result = new ArrayList<>();
+        all.forEach(result::add);
+        return ResponseEntity.ok(result);
+    }
+
+    // Delete a user by username
+    @DeleteMapping("/user")
+    public ResponseEntity<Void> deleteUser(@RequestParam String username) {
+        if (!userRedisRepository.existsById(username)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        userRedisRepository.deleteById(username);
+        return ResponseEntity.noContent().build();
     }
 
     // ✅ Delete a user hash (entire record)

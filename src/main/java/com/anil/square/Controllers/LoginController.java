@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +53,12 @@ public class LoginController {
     public String myloginredirect(HttpServletRequest request, @PathVariable(value = "email") String email,
             @PathVariable(value = "password") String password, RedirectAttributes attributes) {
         if (authenticateProusers(email, password, request)) {
+           
+            // Establish Spring Security authentication context
+            Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, java.util.Collections.emptyList());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            request.getSession(true).setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+            
             return "redirect:/dash";
         }
         attributes.addFlashAttribute("error", "Error AutoAuth");
@@ -117,6 +127,10 @@ public class LoginController {
 
             if (authenticateProusers(email, password, request)) {
                 request.getSession().setAttribute("loggedInUser", prousers);
+                // Establish Spring Security authentication context
+                Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, java.util.Collections.emptyList());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                request.getSession(true).setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
                 return "redirect:/dash";
             } else {
                 attributes.addFlashAttribute("error", "Invalid Password");
@@ -130,6 +144,6 @@ public class LoginController {
         //     return "redirect:/";
         // }
 
-    }
+        }
 
 }

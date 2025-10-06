@@ -1,17 +1,41 @@
 package com.anil.square;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableAutoConfiguration
 public class SquareApplication {
 
+
+	@Autowired
+	private RedisConnectionFactory redisConnectionFactory;
 	public static void main(String[] args) {
 		SpringApplication.run(SquareApplication.class, args);
+	}
+
+	@EventListener(ApplicationReadyEvent.class)
+	public void onReady() {
+		System.out.println("[STARTED] JKSamadhan v2 Server is running");
+
+		// Redis status check
+		try {
+			String ping = redisConnectionFactory.getConnection().ping();
+			if ("PONG".equalsIgnoreCase(ping)) {
+				System.out.println("[STARTED] Redis Server is running");
+			} else {
+				System.out.println("[UNEXPECTED] Redis Server is having unexpected ping response");
+			}
+		} catch (Exception e) {
+			System.out.println("[NOT STARTED] Redis Server is not running");
+		}
 	}
 
 }

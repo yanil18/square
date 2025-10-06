@@ -42,7 +42,7 @@ async function fetchData() {
       aesKey = data.HarshKey;
       publicKeyPEM = data.AbhiKey;
      
-      console.log(aesKey);
+      // console.log(aesKey);
        HybridEncryption(aesKey);
   } catch (error) {
       console.error('Error fetching keys:', error);
@@ -51,7 +51,7 @@ async function fetchData() {
 
 fetchData();
 function HybridEncryption(normaldata) {
-  console.log("aesKey   "+normaldata)
+  // console.log("aesKey   "+normaldata)
     // Add the timestamp to the data
     // const dataWithTimestamp = getPasswordWithTimestamp(normaldata);
 
