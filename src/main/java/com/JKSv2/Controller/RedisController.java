@@ -100,12 +100,18 @@ public class RedisController {
 
     // Create or Update a user (upsert)
     @PostMapping("/user")
-    public ResponseEntity<UserRedis> upsertUser(@RequestBody UserRedis user) {
-        if (user == null || user.getUsername() == null || user.getUsername().trim().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    public ResponseEntity<?> upsertUser(@RequestBody UserRedis user) {
+        try {
+            if (user == null || user.getUsername() == null || user.getUsername().trim().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Username is required"));
+            }
+            UserRedis saved = userRedisRepository.save(user);
+            return ResponseEntity.status(HttpStatus.OK).body(saved);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Failed to save user: " + e.getMessage()));
         }
-        UserRedis saved = userRedisRepository.save(user);
-        return ResponseEntity.status(HttpStatus.OK).body(saved);
     }
 
     // Read a user by username

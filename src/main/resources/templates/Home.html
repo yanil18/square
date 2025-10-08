@@ -1,13 +1,14 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf" th:content="${_csrf.token}" />
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <title>Modern Landing Page</title>
- <link th:href="@{/CSS/styles.css}" rel="stylesheet">
+    <link th:href="@{/CSS/styles.css}" rel="stylesheet">
     <style>
         /* Toast Container */
         .toast-container {
@@ -120,6 +121,7 @@
                 transform: translateX(400px);
                 opacity: 0;
             }
+
             to {
                 transform: translateX(0);
                 opacity: 1;
@@ -131,6 +133,7 @@
                 transform: translateX(0);
                 opacity: 1;
             }
+
             to {
                 transform: translateX(400px);
                 opacity: 0;
@@ -147,13 +150,14 @@
         }
     </style>
 </head>
+
 <body>
 
-      <input type="hidden" id="contextPath" th:value="@{/}" readonly></input>
-                 <!-- Toast Container -->
-                <div class="toast-container" id="toastContainer"></div>
-     <!-- error messages -->
-            <div th:if="${error}" class="alert alert-danger" id="errorMessage" th:text="${error}"></div>
+    <input type="hidden" id="contextPath" th:value="@{/}" readonly></input>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+    <!-- error messages -->
+    <div th:if="${error}" class="alert alert-danger" id="errorMessage" th:text="${error}"></div>
     <div th:if="${success}" class="alert alert-success" id="successMessage" th:text="${success}"></div>
     <header>
         <nav>
@@ -171,7 +175,7 @@
         </nav>
     </header>
 
- <input type="hidden" id="context_path" th:value="${#httpServletRequest.getContextPath()}">
+    <input type="hidden" id="context_path" th:value="${#httpServletRequest.getContextPath()}">
     <main>
         <section class="hero">
             <h1>Welcome to Our Website</h1>
@@ -194,16 +198,19 @@
                 <div class="col-md-12">
                     <div class="input-block captcha">
                         <div class="captcha-block">
-                            <img id="imageidcap" alt="captcha" th:src=@{/captcha}>  
-                            <a href="javascript:refreshCaptcha();"
-                                id="change-image"> <svg  width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"/>
-                                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
+                            <img id="imageidcap" alt="captcha" th:src=@{/captcha}>
+                            <a href="javascript:refreshCaptcha();" id="change-image"> <svg width="16" height="16"
+                                    fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
+                                    <path
+                                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
                                 </svg>
-                            </a> 
+                            </a>
                         </div>
-                        <input class="form-control" onkeyup="this.value = this.value.replace(/[^0-9a-zA-Z]/g,'').substring(0,5);"
-                        name="captcha" placeholder="Enter Captcha" required /> 
+                        <input class="form-control"
+                            onkeyup="this.value = this.value.replace(/[^0-9a-zA-Z]/g,'').substring(0,5);" name="captcha"
+                            placeholder="Enter Captcha" required />
                     </div>
                 </div>
                 <button type="submit">Login</button>
@@ -224,41 +231,42 @@
                 <input type="email" id="signup-email" name="email" required>
                 <label for="signup-password">Password:</label>
                 <input type="password" id="signup-password" name="password" required>
-                 <label for="signup-confirmpassword">Confirm Password:</label>
+                <label for="signup-confirmpassword">Confirm Password:</label>
                 <input type="password" id="signup-confirmpassword" name="confirmpassword" required>
                 <button type="submit">Sign Up</button>
             </form>
         </div>
     </div>
 
-    
+
 
     <script th:src="@{/JS/jquery.min.3.7.1.js}"></script>
     <script th:src="@{/JS/cryptoJS.js}"></script>
     <script th:src="@{/JS/code.js}"></script>
-  	<script th:src="@{/JS/csrfToken.js}"></script>
-	<script th:src="@{/JS/aesUtil.js}"></script>
-	<script th:src="@{/JS/forge.js}"></script>
-	<script th:src="@{/JS/HybridEncryption.js}"></script>
+    <script th:src="@{/JS/csrfToken.js}"></script>
+    <script th:src="@{/JS/aesUtil.js}"></script>
+    <script th:src="@{/JS/forge.js}"></script>
+    <script th:src="@{/JS/HybridEncryption.js}"></script>
     <script th:src="@{/JS/customcaptcha.js}"></script>
     <script th:src="@{/JS/script.js}"></script>
-      <script>
+    <script th:src="@{customol/js/Stopinspect.js}"></script>
+    <script>
         // Toast Notification Function
         function showToast(message, type) {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
-            
+
             const icon = type === 'success' ? '✓' : '✕';
-            
+
             toast.innerHTML = `
                 <div class="toast-icon">${icon}</div>
                 <div class="toast-message">${message}</div>
                 <button class="toast-close" onclick="closeToast(this)">×</button>
             `;
-            
+
             container.appendChild(toast);
-            
+
             // Auto remove after 5 seconds
             setTimeout(() => {
                 closeToast(toast.querySelector('.toast-close'));
@@ -274,17 +282,17 @@
         }
 
         // Check for error and success messages on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const errorDiv = document.getElementById('errorMessage');
             const successDiv = document.getElementById('successMessage');
-            
+
             if (errorDiv) {
                 const errorText = errorDiv.textContent.trim();
                 if (errorText) {
                     showToast(errorText, 'error');
                 }
             }
-            
+
             if (successDiv) {
                 const successText = successDiv.textContent.trim();
                 if (successText) {
@@ -294,4 +302,5 @@
         });
     </script>
 </body>
+
 </html>
